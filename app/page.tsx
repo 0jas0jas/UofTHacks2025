@@ -1,56 +1,67 @@
+'use client'
+
+import React from "react";
 import { Link } from "@heroui/link";
 import { Snippet } from "@heroui/snippet";
 import { Code } from "@heroui/code";
-import { button as buttonStyles } from "@heroui/theme";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Form } from "@heroui/form";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
 
+
+
 export default function Home() {
+  const [fileNames, setFileNames] = React.useState<string[]>([]);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const files = formData.getAll("files") as File[];
+    console.log(formData);
+    const names = files.map(file => file.name);
+    setFileNames(names);
+  };
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
+      <div className="inline-block max-w-xl  text-center justify-center">
+
+        <div className="h-12"></div>
+
+        <span className="font-black text-8xl">Code<span className="text-blue-500">View&nbsp;</span></span>
+
         <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+
+        <div className="text-2xl font-semibold">
+          Coding a new perspective.
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
-        >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
+      <div className="h-6"></div>
+
+      <div className="text-2xl font-semibold">
+        <Form onSubmit={onSubmit} className="flex flex-col items-center">
+          <Input type="file" name="files" multiple className="mb-4" />
+          <Button type="submit" className="self-center">Submit</Button>
+        </Form>
+        {fileNames.length > 0 && (
+          <div className="mt-4">
+        <h3>Uploaded Files:</h3>
+        <ul>
+          {fileNames.map((name, index) => (
+            <li key={index}>{name}</li>
+          ))}
+        </ul>
+          </div>
+        )}
       </div>
 
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
+
     </section>
   );
 }
+
+
