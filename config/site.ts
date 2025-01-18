@@ -5,25 +5,17 @@ export const siteConfig = {
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
-      label: "Home",
-      href: "/",
-    },
-    {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
       label: "Pricing",
       href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
     },
     {
       label: "About",
       href: "/about",
     },
+    {
+      label: "Contribute",
+      href: "https://github.com/0jas0jas/UofTHacks2025",
+    }
   ],
   navMenuItems: [
     {
@@ -60,10 +52,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/frontio-ai/heroui",
-    twitter: "https://twitter.com/hero_ui",
-    docs: "https://heroui.com",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
+    githubOjas: "https://github.com/0jas0jas",
+    githubAdi: "https://github.com/adityash23"
   },
 };
