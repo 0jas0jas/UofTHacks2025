@@ -22,7 +22,7 @@ export const title = tv({
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "lg",
   },
   compoundVariants: [
     {
