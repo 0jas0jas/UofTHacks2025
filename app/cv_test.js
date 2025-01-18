@@ -17,8 +17,27 @@ async function processAndUseText(imagePath) {
   }
 }
 
-// test
-const imagePath = "img_test_hand.png";
+// stress test
+const imagePath = "img_test.png";
+
+async function stressTest(imagePath) {
+  try {
+    let output = "";
+    for (let index = 0; index < 10; index++) {
+      const result = await processAndUseText(imagePath);
+      output = output.concat(result.extractedText);
+    }
+
+    console.log(output);
+  } catch (error) {
+    console.error("Error processing image:", error);
+  }
+}
+
+stressTest(imagePath);
+
+/*
 processAndUseText(imagePath).then((result) => {
-  console.log("Final Result:", result);
-});
+        console.log("Final Result:", result);
+      }); 
+*/
