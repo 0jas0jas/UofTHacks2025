@@ -25,6 +25,7 @@
   "@react-aria/ssr": "3.9.7",
   "@react-aria/visually-hidden": "3.8.18",
   "clsx": "2.1.1",
+  "file-saver": "^2.0.5",
   "framer-motion": "11.13.1",
   "gasp": "^0.0.2",
   "intl-messageformat": "^10.5.0",
@@ -38,7 +39,8 @@
  "devDependencies": {
   "@next/eslint-plugin-next": "15.0.4",
   "@react-types/shared": "3.25.0",
-  "@types/node": "20.5.7",
+  "@types/file-saver": "^2.0.7",
+  "@types/node": "^22.10.7",
   "@types/react": "18.3.3",
   "@types/react-dom": "18.3.0",
   "@typescript-eslint/eslint-plugin": "8.11.0",

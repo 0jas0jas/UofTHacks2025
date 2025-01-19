@@ -6,6 +6,8 @@ import AnalysisPageComp from "@/components/anal";
 import React, { useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { useSearchParams } from 'next/navigation';
+import { saveAs } from 'file-saver';
+import { Button } from "@heroui/button";
 
 interface AnalPageProps {
   code: string;
@@ -107,6 +109,48 @@ const { title, description, time, space, python } = analysis ? extractInfo(analy
 const star = "⭐";
 const stars = star.repeat(rate(time, space));
 
+const createHtmlFile = (title: string, description: string, time: string, space: string, python: string, stars: string) => {
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-[#f0f0f0] p-16">
+    <div class="grid grid-cols-4 grid-rows-5 gap-4">
+        <div class="col-span-2 text-5xl font-extrabold text-left" id="headerText">${title}</div>
+        <div class="col-span-2 col-start-1 row-start-4 text-4xl font-bold border border-current flex justify-center items-center rounded-lg">
+            Complexity Analysis
+        </div>
+        <div class="col-span-2 col-start-3 row-start-1 text-5xl" id="ratingText">${stars}</div>
+        <div class="col-span-2 row-span-4 col-start-3 row-start-2">
+            <div class="h-96 border rounded-lg">
+                <div class="text-right p-2 border-b">.py</div>
+                <div class="text-center text-3xl font-bold p-4" id="codeText">${python}</div>
+            </div>
+        </div>
+        <div class="col-span-2 row-span-2 col-start-1 row-start-2">
+            <div class="h-full p-2 border rounded-lg">
+                <div class="p-4" id="descriptionText">${description}</div>
+            </div>
+        </div>
+        <div class="row-start-5">
+            <div class="border rounded-lg p-4 text-center text-3xl font-bold" id="timeComplex">${time}</div>
+        </div>
+        <div class="row-start-5">
+            <div class="border rounded-lg p-4 text-center text-3xl font-bold" id="spaceComplex">${space}</div>
+        </div>
+    </div>
+</body>
+</html>
+  `;
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  saveAs(blob, `${title}.html`);
+};
+
   return (
     <div>
       {analysis ? (
@@ -119,6 +163,12 @@ const stars = star.repeat(rate(time, space));
                           timeComplex={time}
                           spaceComplex={space}
                       />
+                      <Button onPress={() => {
+                        createHtmlFile(title, description, time, space, python, stars);
+                        saveAs(title+'.html', title+'.html');
+                        }}>
+                          Save analysis
+                      </Button>
         </div>
       ) : (
         <p>Loading analysis...</p>
