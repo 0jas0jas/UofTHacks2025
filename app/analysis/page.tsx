@@ -4,25 +4,12 @@ import { annotateDynamicAccess } from "next/dist/server/app-render/dynamic-rende
 import OpenAI from "openai";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API});
 
-let code = `function fn(arr, target):
-    left = 0
-    right = length of arr - 1
-
-    while left <= right:
-        mid = (left + right) / 2
-
-        if arr[mid] == target:
-            return mid  
-        else if arr[mid] < target:
-            left = mid + 1  
-        else:
-            right = mid - 1  
-
-    return -1 `;
+let code = `function func(arr): 
+                x = 5 `;
 
 const instructions = `Analyze the following pseudocode. Give a short title, description, time complexity 
-and space complexity of the code in the following dictionary format. ONLY RETURN THE JSON OBJECT, NOTHING ELSE
-{ title: "Karatsuba's Algorithm", description: "A divide and conquer algorithm for fast multiplication", time: "O(logn)", space: "O(n)" }`;
+and space complexity, and python implementation of the code in the following dictionary format.  ONLY RETURN THE JSON OBJECT, NOTHING ELSE
+{ title: "Karatsuba's Algorithm", description: "A divide and conquer algorithm for fast multiplication", time: "O(logn)", space: "O(n)" , python: "python code here"}`;
 
 code = code.concat(instructions);
 
@@ -47,7 +34,7 @@ console.log(typeof(answer));
 let answerClean = JSON.parse(answer);
 
 
-answer = answer.replace(/"/g, '\\"');
+// answer = answer.replace(/"/g, '\\"');
 
 // answer = answer.replace(/n/g, '');
 
@@ -68,17 +55,63 @@ const title = answerClean.title;
 const time = answerClean.time;
 const space = answerClean.space;
 const description = answerClean.description;
- 
+const python = answerClean.python;
+
+function rate(time : string, space : string) : number {
+  let score : number = 0;
+  switch (time) {
+    case "O(1)": // same logic as logn so move on to that case
+    case "O(log n)":
+      score += 5;
+      break;
+    case "O(n)":
+      score += 4;
+      break;
+    case "O(n log n)":
+      score += 3;
+      break;
+    case "O(n^2)":
+      score += 2;
+      break;
+    default:
+      score += 1;
+  }
+
+  switch (space) {
+    case "O(1)": // same logic as logn so move on to that case
+    case "O(log n)":
+      score += 5;
+      break;
+    case "O(n)":
+      score += 4;
+      break;
+    case "O(n log n)":
+      score += 3;
+      break;
+    case "O(n^2)":
+      score += 2;
+      break;
+    default:
+      score += 1;
+  }  
+  
+
+  return Math.floor(score / 2);;
+}
+
+const star = "⭐";
+const stars = star.repeat(rate(time, space));
 
 export default function Analysis() {
   return (
     <AnalPage 
       headerText={title}
-      ratingText={"⭐⭐⭐⭐⭐"}
-      codeText={"Bunch o code"}
+      ratingText={stars}
+      codeText={python}
       descriptionText={description}
       timeComplex={time}
       spaceComplex={space}
+     // pythonCode={python}
       />
   );
 }
