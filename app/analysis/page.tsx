@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import GetAnalysis from '@/components/getAnal';
 import { useSearchParams } from 'next/navigation';
