@@ -13,8 +13,8 @@ export default async function GetAnalysis({ code }: GetAnalysisProps) {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API });
 
     const instructions = `Analyze the following pseudocode. Give a short title, description, time complexity 
-and space complexity, and python implementation of the code in the following dictionary format.  ONLY RETURN THE JSON OBJECT WITHOUT ANY QUOTES, NOTHING ELSE
-{ title: "Karatsuba's Algorithm", description: "A divide and conquer algorithm for fast multiplication", time: "O(logn)", space: "O(n)" , python: "python code here"}`;
+and space complexity, and python implementation of the code in the following string format.  RETURN THE TEXT ONLY IN THE FOLLOWING FORMAT. RESPECT IT STRICTLY AND SEPARATE BY @ SYMBOLS 
+{Karatsuba Algorithm @ A divide and conquer algorithm for fast multiplication @ O(logn) @ O(n) @ python code here}`;
 
     code = code.concat(instructions);
     let completion;
@@ -40,12 +40,13 @@ and space complexity, and python implementation of the code in the following dic
     console.log(answer);
     console.log(typeof (answer));
 
+    /*
 
-     answer = answer.replace(/"/g, '\\"');
+    //answer = answer.replace(/"/g, '\\"');
 
-     console.log(answer);
+    // console.log(answer);
 
-     let answerClean = JSON.parse(answer);
+    let answerClean = JSON.parse(answer);
 
     // answer = answer.replace(/n/g, '');
 
@@ -53,20 +54,33 @@ and space complexity, and python implementation of the code in the following dic
     console.log(typeof (answer));
 
 
-    /*
-    let answerClean = JSON.parse(`{
-      "title": "Merge Sort",
-      "description": "A divide and conquer algorithm that sorts an array by recursively splitting it into halves, sorting each half, and then merging the sorted halves back together.",
-      "time": "O(n log n)",
-      "space": "O(n)"
-    }`);
-    */
+    
+    //let answerClean = JSON.parse(`{ title: \"Variable Declaration\", description: \"This pseudocode initializes an integer variable x with the value 5.\", time: \"O(1)\", space: \"O(1)\", python: \"x = 5\"}`);
+    
 
     const title = answerClean.title;
     const time = answerClean.time;
     const space = answerClean.space;
     const description = answerClean.description;
     const python = answerClean.python;
+    */
+
+    function extractInfo(answer: string) {
+        const parts = answer.split("@").map((part) => part.trim());
+        const title = parts[0].substring(1);
+        const description = parts[1];
+        const time = parts[2];
+        const space = parts[3];
+        const python = parts[4].substring(0, parts[4].length - 1);
+
+        return { title, description, time, space, python };
+    }
+
+    const { title, description, time, space, python } = extractInfo(answer);
+
+    console.log(time);
+    console.log(space);
+
 
     function rate(time: string, space: string): number {
         let score: number = 0;
