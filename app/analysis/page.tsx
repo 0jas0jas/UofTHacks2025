@@ -24,8 +24,8 @@ const AnalPage: React.FC<AnalPageProps> = ({ code }) => {
       const openai = new OpenAI({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
 
       const instructions = `Analyze the following pseudocode. Give a short title, description, time complexity 
-      and space complexity, and python implementation of the code in the following string format. RETURN THE TEXT ONLY IN THE FOLLOWING FORMAT. RESPECT IT STRICTLY AND SEPARATE BY @ SYMBOLS 
-      {Karatsuba Algorithm @ A divide and conquer algorithm for fast multiplication @ O(logn) @ O(n) @ python code here}`;
+      and space complexity, and python implementation (with new line characters at the right places) of the code in the following string format. RETURN THE TEXT ONLY IN THE FOLLOWING FORMAT. RESPECT IT STRICTLY AND SEPARATE BY @ SYMBOLS 
+      {Karatsuba Algorithm @ A divide and conquer algorithm for fast multiplication @ O(logn) @ O(n) @ def karatsuba(x, y):\n    if x < 10 or y < 10:\n        return x * y\n    n = max(len(str(x)), len(str(y)))\n    m = n // 2\n    xh, xl = divmod(x, 10**m)\n    yh, yl = divmod(y, 10**m)\n    s1 = karatsuba(xh, yh)\n    s2 = karatsuba(xl, yl)\n    s3 = karatsuba(xh + xl, yh + yl) - s1 - s2\n    return s1 * 10**(2*m) + s3 * 10**m + s2"}`;
 
       const fullCode = code.concat(instructions);
       let completion;
@@ -105,7 +105,7 @@ function rate(time: string, space: string): number {
   return Math.floor(score / 2);;
 }
 
-const { title, description, time, space, python } = analysis ? extractInfo(analysis) : { title: '', description: '', time: '', space: '', python: '' };
+let { title, description, time, space, python } = analysis ? extractInfo(analysis) : { title: '', description: '', time: '', space: '', python: '' };
 const star = "⭐";
 const stars = star.repeat(rate(time, space));
 
@@ -155,6 +155,7 @@ const createHtmlFile = (title: string, description: string, time: string, space:
     <div>
       {analysis ? (
         <div>
+          
           <AnalysisPageComp
                           headerText={title}
                           ratingText={stars}

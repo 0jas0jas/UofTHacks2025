@@ -1,5 +1,9 @@
 import { title } from "@/components/primitives";
 import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
+import { Code } from "@heroui/code";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coy, dark, solarizedlight, tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 
 interface AnalPageProps {
   headerText: string;
@@ -28,8 +32,9 @@ export default function AnalysisPageComp({
       <div className="col-span-2 row-span-4 col-start-3 row-start-2">
         <Card className="h-96">
           <CardHeader className="!text-right">.py</CardHeader>
-          <CardBody className="text-center text-3xl font-bold">
-            <p>{codeText}</p>
+          <CardBody className="text-center text-md font-bold">
+          <SyntaxHighlighter language="python" style={tomorrow} className="fadetogrey">
+          {codeText}</SyntaxHighlighter>
           </CardBody>
         </Card>
       </div>
