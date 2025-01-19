@@ -180,7 +180,7 @@ export default {
               "700": "#d1fff5",
               "800": "#ebfffb",
               "900": "#f5fffd",
-              "DEFAULT": "#01efbb",
+              "DEFAULT": "#027a60",
               "foreground": "#f5fffd"
             },
             "divider": "#a3a3a3",
