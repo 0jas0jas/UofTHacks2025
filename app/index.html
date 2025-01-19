@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-[#f0f0f0] p-16">
+    <div class="grid grid-cols-4 grid-rows-5 gap-4">
+        <div class="col-span-2 text-5xl font-extrabold text-left" id="headerText"></div>
+        <div class="col-span-2 col-start-1 row-start-4 text-4xl font-bold border border-current flex justify-center items-center rounded-lg">
+            Complexity Analysis
+        </div>
+        <div class="col-span-2 col-start-3 row-start-1 text-5xl" id="ratingText"></div>
+        <div class="col-span-2 row-span-4 col-start-3 row-start-2">
+            <div class="h-96 border rounded-lg">
+                <div class="text-right p-2 border-b">.py</div>
+                <div class="text-center text-3xl font-bold p-4" id="codeText"></div>
+            </div>
+        </div>
+        <div class="col-span-2 row-span-2 col-start-1 row-start-2">
+            <div class="h-full p-2 border rounded-lg">
+                <div class="p-4" id="descriptionText"></div>
+            </div>
+        </div>
+        <div class="row-start-5">
+            <div class="border rounded-lg p-4 text-center text-3xl font-bold" id="timeComplex"></div>
+        </div>
+        <div class="row-start-5">
+            <div class="border rounded-lg p-4 text-center text-3xl font-bold" id="spaceComplex"></div>
+        </div>
+    </div>
+
+    <script>
+        // Example data to populate the page
+        document.getElementById('headerText').innerText = 'Header Text Example';
+        document.getElementById('ratingText').innerText = 'Rating Text Example';
+        document.getElementById('codeText').innerText = 'Code Text Example';
+        document.getElementById('descriptionText').innerText = 'Description Text Example';
+        document.getElementById('timeComplex').innerText = 'Time Complexity Example';
+        document.getElementById('spaceComplex').innerText = 'Space Complexity Example';
+    </script>
+</body>
+</html>
