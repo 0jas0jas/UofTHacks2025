@@ -10,7 +10,7 @@ interface AnalPageProps {
   spaceComplex: string;
 }
 
-export default function AnalPage({
+export default function AnalysisPageComp({
   headerText,
   ratingText,
   codeText,
