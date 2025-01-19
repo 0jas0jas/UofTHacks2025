@@ -1,11 +1,14 @@
 import React from 'react';
 import GetAnalysis from '@/components/getAnal';
+import { useSearchParams } from 'next/navigation';
 
 const AnalysisPage: React.FC = () => {
+  const searchParams = useSearchParams();
+  const text = searchParams.get('text') || '';
+
   return (
     <div>
-      <h1>Analysis Page</h1>
-      <GetAnalysis code={'INT x = 5'} />
+      <GetAnalysis code={text} />
     </div>
   );
 };
