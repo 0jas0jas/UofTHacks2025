@@ -1,5 +1,6 @@
 const Tesseract = require("tesseract.js");
 const imagePath = "img_test.png";
+const path = require("path");
 
 // below code works well
 /*

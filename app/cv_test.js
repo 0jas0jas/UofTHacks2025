@@ -1,9 +1,9 @@
-const readImage = require("./cv"); // Adjust the path if needed
+const readImage = require("./cv");
 
-async function processAndUseText(imagePath) {
+async function processAndUseText(imagePath, readFunction) {
   try {
     // Call the processImage function and await its result
-    const extractedText = await readImage(imagePath);
+    const extractedText = await readFunction(imagePath);
 
     // Use the extracted text for further processing (e.g., count words)
     console.log("Extracted Text:", extractedText);
@@ -20,11 +20,11 @@ async function processAndUseText(imagePath) {
 // stress test
 const imagePath = "img_test.png";
 
-async function stressTest(imagePath) {
+async function stressTest(imagePath, readFunction) {
   try {
     let output = "";
     for (let index = 0; index < 10; index++) {
-      const result = await processAndUseText(imagePath);
+      const result = await processAndUseText(imagePath, readFunction);
       output = output.concat(result.extractedText);
     }
 
@@ -34,7 +34,7 @@ async function stressTest(imagePath) {
   }
 }
 
-stressTest(imagePath);
+stressTest(imagePath, readImage);
 
 /*
 processAndUseText(imagePath).then((result) => {
