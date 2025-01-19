@@ -48,14 +48,14 @@ export default function AnalysisPageComp({
       <div className="row-start-5">
         <Card className="">
           <CardBody className="text-center text-3xl font-bold">
-            <p>{timeComplex}</p>
+            <p>🕝 {timeComplex}</p>
           </CardBody>
         </Card>
       </div>
       <div className="row-start-5">
         <Card className="">
           <CardBody className="text-center text-3xl font-bold">
-            <p>{spaceComplex}</p>
+            <p>📝 {spaceComplex}</p>
           </CardBody>
         </Card>
       </div>
