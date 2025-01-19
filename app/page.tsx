@@ -37,7 +37,7 @@ export default function Home() {
 
         <div className="h-12"></div>
 
-        <span className="font-black text-8xl">Code<span className="text-blue-500">View&nbsp;</span></span>
+        <span className="font-black text-8xl">Code<span className="text-[#EF3E36]">View&nbsp;</span></span>
 
         <br />
 
