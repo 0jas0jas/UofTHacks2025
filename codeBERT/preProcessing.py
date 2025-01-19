@@ -1,5 +1,6 @@
 import json
 import csv
+import os
 
 #print(data[0].get('codes').get('Python3').get('code')) 
 
@@ -53,7 +54,13 @@ if __name__ == '__main__':
 
     cleaned_data = clean_data(data)
 
-    with open('training_data.csv', 'w', newline='') as csvfile:
+    # Get the directory of the current script
+    current_directory = os.path.dirname(__file__)
+
+    # Construct the full path to the CSV file inside the same folder
+    training_data = os.path.join(current_directory, 'training_data.csv')
+
+    with open(training_data, 'w', newline='') as csvfile:
         fieldnames = ['input', 'time_complexity', 'space_complexity']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -63,7 +70,7 @@ if __name__ == '__main__':
                 writer.writerow(entry)
             except Exception as e:
                 continue
-    print('preprocessing running by itself')
+    print('preprocessing running by itself, cleaning data and saving it')
 
 
 
