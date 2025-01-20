@@ -178,12 +178,21 @@ const createHtmlFile = (title: string, description: string, time: string, space:
   );
 };
 
-const AnalysisPage: React.FC = () => {
+const SearchParamsComponent: React.FC<{ setSearchText: (text: string) => void }> = ({ setSearchText }) => {
   const searchParams = useSearchParams();
   const searchText = searchParams.get('text') || '';
+  useEffect(() => {
+    setSearchText(searchText);
+  }, [searchText, setSearchText]);
+  return null;
+};
+
+const AnalysisPage: React.FC = () => {
+  const [searchText, setSearchText] = useState('');
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <SearchParamsComponent setSearchText={setSearchText} />
       <AnalPage code={searchText} />
     </Suspense>
   );
