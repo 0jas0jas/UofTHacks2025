@@ -3,7 +3,7 @@
 
 import AnalysisPageComp from "@/components/anal";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import OpenAI from 'openai';
 import { useSearchParams } from 'next/navigation';
 import { saveAs } from 'file-saver';
@@ -182,7 +182,11 @@ const AnalysisPage: React.FC = () => {
   const searchParams = useSearchParams();
   const searchText = searchParams.get('text') || '';
 
-  return <AnalPage code={searchText} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AnalPage code={searchText} />
+    </Suspense>
+  );
 };
 
 export default AnalysisPage;
